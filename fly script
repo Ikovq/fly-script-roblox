@@ -31,7 +31,7 @@ TextLabel.Parent = Frame
 TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 TextLabel.Size = UDim2.new(0, 86, 0, 24)
 TextLabel.Font = Enum.Font.Oswald
-TextLabel.Text = "Made by 7alexv7"
+TextLabel.Text = "Made by Iko#5398"
 TextLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
 TextLabel.TextScaled = true
 TextLabel.TextSize = 14.000
@@ -70,7 +70,7 @@ local function NQWSTGE_fake_script() -- Frame.Fly
     speed = maxspeed 
     end 
     elseif not (ctrl.l + ctrl.r ~= 0 or ctrl.f + ctrl.b ~= 0) and speed ~= 0 then 
-    speed = speed-1 
+    speed = speed 20
     if speed < 0 then 
                     speed = 0
                 else
@@ -97,7 +97,7 @@ local function NQWSTGE_fake_script() -- Frame.Fly
     end 
     
     mouse.KeyDown:connect(function(key) 
-    if key:lower() == "e" then 
+    if key:lower() == "f" then 
             if flying then flying = false 
                 speed = 50
     else 
