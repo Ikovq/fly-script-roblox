@@ -1,0 +1,222 @@
+local FlyGui = Instance. nouveau(« ScreenGui »)
+local Cadre = Instance. nouveau(« Cadre »)
+local TextButton = Instance. nouveau(« TextButton »)
+local TextLabel = Instance. nouveau(« TextLabel »)
+ 
+--Propriétés:
+ 
+FlyGui. Nom = « FlyGui »
+FlyGui. Parent = jeu. Joueurs. LocalPlayer:WaitForChild(« PlayerGui »)
+ 
+Cadre. Parent = FlyGui
+Cadre. BackgroundColor3 = Couleur3. deRGB(80, 80, 80 )
+Cadre. BorderSizePixel = 0
+Cadre. Position = UDim2. nouveau(0.0685602352, 0, 0.168769717, 0 )
+Cadre. Taille = UDim2. nouveau(0.264544547, 0,  0.100000024, 0 )
+ 
+Bouton Texte. Parent = Cadre
+Bouton Texte. BackgroundColor3 = Couleur3. fromRGB(66, 66, 66 )
+Bouton Texte. BorderSizePixel = 0
+Bouton Texte. Position = UDim2. nouveau(0.06324628, 0,  0.400667697, 0 )
+Bouton Texte. Taille = UDim2. nouveau(0.871157169, 0, 0.495614201, 0)
+Bouton Texte. Police = Enum. Police. ArialBold
+Bouton Texte. texte = « voler »
+Bouton Texte. TextColor3 = Couleur3. deRGB(255, 255, 255 )
+Bouton Texte. TextScaled = true
+Bouton Texte. Taille du texte = 14 000
+Bouton Texte. TextStrokeTransparency = 0,000
+Bouton Texte. TextWrapped = true
+ 
+TextLabel. Parent = Cadre
+TextLabel. BackgroundColor3 = Couleur3. deRGB(255, 255, 255 )
+TextLabel. Taille = UDim2. nouveau(0, 86, 0, 24)
+TextLabel. Police = Enum. Police. Oswald
+TextLabel. Text = « Fabriqué par 7alexv7 »
+TextLabel. TextColor3 = Couleur3. fromRGB(0, 0, 0 )
+TextLabel. TextScaled = true
+TextLabel. Taille du texte = 14 000
+TextLabel. TextWrapped = true
+ 
+--Scripts:
+ 
+fonction locale NQWSTGE_fake_script() -- Frame.Fly 
+    script local = Instance. new('LocalScript', Frame)
+ 
+    PLR local = script. Parent. Parent. Parent. Parent
+    Répétez wait() jusqu’à plr et plr. Caractère et plr. Character:findFirstChild(« HumanoidRootPart ») et plr. Caractère:findFirstChild(« Humanoïde ») 
+    souris locale = jeu. Joueurs. LocalPlayer:GetMouse()  
+    Répétez wait() jusqu’à la souris
+    
+    torse local = plr. caractère. HumanoidRootPart 
+    vol local = faux
+    local deb = vrai 
+    Ctrl local =  {f = 0, b = 0, l = 0, r   =  0} 
+    lastctrl local =  {f = 0, b = 0, l = 0, r   =  0} 
+    maxspeed local = 1000 
+    vitesse locale = 50
+    fonction Mouche() 
+    local bg = Instance. nouveau(« BodyGyro », torse) 
+ bg. P = 9e4 
+ bg. maxTorque = Vecteur3. nouveau(9e9, 9e9, 9e9 ) 
+ bg. cframe = torse. CFrame 
+    local bv = Instance. nouveau(« BodyVelocity », torse) 
+ bv. vitesse = Vecteur3. nouveau(0,0.1,0 ) 
+ bv. maxForce = Vecteur3. nouveau(9e9, 9e9, 9e9 ) 
+    Répéter l’attente() 
+ PLR. caractère. Humanoïde. PlatformStand = vrai 
+    Si ctrl. L + Ctrl. r ~= 0 ou ctrl. f + ctrl. b ~= 0 alors 
+ vitesse = vitesse + .5+ (vitesse/vitesse maximale) 
+    Si la vitesse > MaxSpeed alors 
+ vitesse = vitesse max. 
+    fin 
+    sinonsinon  (ctrl. L + Ctrl. r ~= 0 ou ctrl. f + ctrl. b ~= 0) et vitesse ~= 0  alors 
+ vitesse = vitesse-1 
+    Si la vitesse < 0 alors 
+ vitesse = 0
+                autre
+ vitesse = 50
+    fin 
+    fin 
+    Si (Ctrl. L + Ctrl. r) ~= 0 ou (ctrl. f + ctrl. b) ~= 0 alors 
+ bv. vélocité =  ((jeu. Espace de travail. CurrentCamera. CoordinateFrame. lookVector * (ctrl. F+Ctrl. b)) +  ((jeu. Espace de travail. CurrentCamera. CoordinateFrame * CFrame. nouveau(ctrl. L+Ctrl. r,(ctrl. F+Ctrl. b)*.2,0). p) - jeu. Espace de travail. CurrentCamera. CoordinateFrame. p))*vitesse 
+ lastctrl = {f = ctrl. f, b = ctrl. b, l = ctrl. L, R = Ctrl. r} 
+    elseif (ctrl. L + Ctrl. r) == 0 et (ctrl. f + ctrl. b) == 0 et vitesse ~= 0 alors  
+ bv. vélocité =  ((jeu. Espace de travail. CurrentCamera. CoordinateFrame. lookVector * (lastctrl. f+lastctrl. b)) +  ((jeu. Espace de travail. CurrentCamera. CoordinateFrame * CFrame. nouveau(lastctrl. L+lastCTRL. r,(lastctrl. f+lastctrl. b)*.2,0). p) - jeu. Espace de travail. CurrentCamera. CoordinateFrame. p))*vitesse 
+    autre 
+ bv. vitesse = Vecteur3. nouveau(0,0.1,0 ) 
+    fin 
+ bg. cframe = jeu. Espace de travail. CurrentCamera. CoordinateFrame * CFrame. Angles(-math.rad((ctrl. F+Ctrl. b)*50*vitesse/vitesse maximale),0,0) 
+    jusqu’à ce qu’il ne vole pas 
+ ctrl = {f = 0, b = 0, l = 0, r   =  0} 
+ lastctrl = {f = 0, b = 0, l = 0, r   =  0} 
+        
+ bg:Détruire() 
+ bv:Détruire() 
+ PLR. caractère. Humanoïde. PlatformStand = false 
+ vitesse = 50
+    fin 
+    
+ souris. KeyDown:connect(function(key) 
+    if key:lower() == « e » then 
+            Si voler alors voler = faux 
+ vitesse = 50
+    autre 
+ Voler = vrai 
+ Mouche()
+    
+    fin 
+    elseif key:lower() == « w » then 
+ CTRL. f = 1 
+    elseif key:lower() == « s » then 
+ CTRL. b = -1 
+    elseif key:lower() == « a » then 
+ CTRL. l = -1 
+    elseif key:lower() == « d » then 
+ CTRL. r = 1 
+    fin 
+    fin) 
+ souris. KeyUp:connect(function(key) 
+    if key:lower() == « w » alors 
+ CTRL. f = 0 
+    elseif key:lower() == « s » then 
+ CTRL. b = 0 
+    elseif key:lower() == « a » then 
+ CTRL. l = 0 
+    elseif key:lower() == « d » then 
+ CTRL. r = 0 
+    fin 
+    fin)
+    
+ PLR. caractère. Humanoïde. StateChanged:Connect(function(o,n)
+        si n == Enum. HumanoidStateType. En cours d’exécution
+ CTRL. f = 1
+        autre
+ CTRL. f = 0
+        fin
+    
+    fin)
+ script. Parent. Bouton Texte. MouseButton1Click:Connect(function()
+        Si vous volez, alors
+ voler = faux
+ vitesse = 50
+        autre
+ Voler = vrai
+ Mouche()
+        fin
+    fin)
+    
+fin
+coroutine.wrap(NQWSTGE_fake_script)()
+fonction locale RAQA_fake_script() -- Frame.Buttons 
+    script local = Instance. new('LocalScript', Frame)
+ 
+    local Trigger = script. Parent. MiniTrext
+    local IsMini = faux
+    fonction CreateTween(Instance,Style,Direction,Time,table,RepeatCount,CanRepeat,Delay)
+        local ts = game:GetService(« TweenService »)
+        local TweenInfo = TweenInfo. nouveau(Heure,Style,Direction,RépéterDécompte,CanRépéter,Retarder)
+        local Tween = ts:Create(Instance,TweenInfo,table)
+        répétez wait() jusqu’à Tween ~= nil
+        rendre Tween
+        
+    fin
+ Déclencheur. MouseButton1Click:Connect(function()
+        si IsMini alors
+ CreateTween(script. Parent,Enum. EasingStyle. Quad,Enum. EasingDirection. Out,0.5,{Taille = UDim2. new(0.265, 0,0.1, 0)},0,false,0.1  ):Lecture ()
+ IsMini = faux
+ Déclencheur. SMS = "-"
+        autre
+ CreateTween(script. Parent,Enum. EasingStyle. Quad,Enum. EasingDirection. Out,0.5,{Taille = UDim2. new(0.265, 0,0.042, 0)},0,false,0.1  ):Lecture ()
+ IsMini = vrai
+ Déclencheur. SMS = "+"
+        fin
+    fin)
+ script. Parent. Supprimer. MouseButton1Click:Connect(function()
+ script. Parent. Parent:Détruire()
+    fin)
+fin
+coroutine.wrap(RAQA_fake_script)()
+fonction locale TKVUMP_fake_script() -- Frame.Drag Gui 
+    script local = Instance. new('LocalScript', Frame)
+ 
+    local UserInputService = game:GetService(« UserInputService »)
+    
+    GUI local = script. Parent
+    
+    Glissement local
+    local dragInput
+    local dragStart
+    startPos local
+    
+    mise à jour de la fonction locale(entrée)
+        delta local = entrée. Position - dragStart
+ GUI. Position = UDim2. nouveau(startPos. X. Échelle, startPos. X. Décalage + delta. X, startPos. Y. Échelle, startPos. Y. Décalage + delta. Y)
+    fin
+    
+ GUI. InputBegan:Connect(function(input)
+        si entrée. UserInputType == Enum. UserInputType. MouseButton1 ou entrée. UserInputType == Enum. UserInputType. Touchez puis
+ glissement = vrai
+ dragStart = entrée. Position
+ startPos = gui. Position
+            
+ entrée. Changé:Connect(fonction()
+                si entrée. UserInputState == Enum. UserInputState. Terminez alors
+ glissement = faux
+                fin
+            fin)
+        fin
+    fin)
+    
+ GUI. InputChanged:Connect(function(input)
+        si entrée. UserInputType == Enum. UserInputType. SourisMouvement ou entrée. UserInputType == Enum. UserInputType. Touchez puis
+ dragInput = entrée
+        fin
+    fin)
+    
+ UserInputService. InputChanged:Connect(function(input)
+        if input == dragInput et glissement alors
+ mise à jour(entrée)
+        fin
+    fin)
+fin
+coroutine.wrap(TKVUMP_fake_script)()
